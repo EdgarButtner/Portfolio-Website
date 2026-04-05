@@ -16,11 +16,11 @@ export default function Projects() {
 
       {/* Main Content */}
       <main className="relative max-w-6xl mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold mb-4">My Projects</h1>
+        <h1 className="text-4xl font-bold text-align-center mb-4">My Projects</h1>
         <p>This is the projects page.</p>
 
         
-        <div className="row-column grid gap-8 mt-8">
+        <div className="row-column grid gap-6 mt-6">
           <CustomCard
           title="My Project"
           image="/images/blue.png"
