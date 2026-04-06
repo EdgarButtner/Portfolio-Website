@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 interface ExpandableCardProps {
@@ -9,11 +9,58 @@ interface ExpandableCardProps {
   image: string;
   description: string;
   tags?: string[];
+  index?: number;
   onClick?: () => void;
 }
 
-export default function CustomCard({ title, subtitle, image, description, tags, onClick }: ExpandableCardProps) {
+export default function CustomCard({ title, subtitle, image, description, tags, index=0, onClick }: ExpandableCardProps) {
   const [expanded, setExpanded] = useState(false);
+  const [cardStyle, setCardStyle] = useState<React.CSSProperties>({ });
+  const cardRef = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+    const fromLeft = index % 2 === 0;
+    const sideOffset = fromLeft ? 80 : 80;
+
+    const update = () => {
+      if (!cardRef.current) return;
+      const { top, height } = cardRef.current.getBoundingClientRect();
+      const view = window.innerHeight;
+
+
+      // Need start and exit position 
+      const topShiftStart = (view * 0.35) - height; 
+      const bottomShiftStart = (view * 0.65);
+
+      let translateX: number;
+      const speedX = 3; 
+
+      if (top <= topShiftStart) {
+        // Going in / out
+        const step = (topShiftStart - top) / (topShiftStart - bottomShiftStart);
+        translateX = sideOffset * step * speedX;
+        setExpanded(false);
+      } else if (top >= bottomShiftStart) {
+        const step = (bottomShiftStart - top) / (bottomShiftStart - topShiftStart);
+        //const step = (top - bottomShiftStart) / (bottomShiftStart - topShiftStart);
+        translateX = sideOffset * step * speedX;
+        setExpanded(false);
+      } else {
+        setExpanded(true);
+        translateX = 0;
+      }
+
+      setCardStyle({ transform: `translateX(${translateX}px)` });
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [index]);
 
   const handleClick = () => {
     setExpanded(!expanded);
@@ -21,6 +68,12 @@ export default function CustomCard({ title, subtitle, image, description, tags, 
   };
 
   return (
+    <>
+      {/* DEBUG: topShiftStart at 25vh */}
+      <div style={{ position: "fixed", top: "35vh", left: 0, width: "100%", height: "2px", background: "red", zIndex: 9999, pointerEvents: "none" }} />
+      {/* DEBUG: bottomShiftStart at 75vh */}
+      <div style={{ position: "fixed", top: "65vh", left: 0, width: "100%", height: "2px", background: "blue", zIndex: 9999, pointerEvents: "none" }} />
+    <div ref={cardRef} style={cardStyle}>
     <div
       className={`w-full border border-foreground/20 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ${
         expanded ? "bg-foreground/5" : "bg-background hover:border-foreground/40"
@@ -28,7 +81,7 @@ export default function CustomCard({ title, subtitle, image, description, tags, 
       onClick={handleClick}
     >
       {/* Collapsed row */}
-      <div className="flex items-center gap-4 px-6 py-4">
+      <div className="flex items-center gap-4 px-6 py-6">
         <Image src={image} alt={title} width={48} height={48} className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
         <div className="flex-1 min-w-0">
           <h3 className="text-foreground font-semibold truncate">{title}</h3>
@@ -64,5 +117,7 @@ export default function CustomCard({ title, subtitle, image, description, tags, 
         </div>
       </div>
     </div>
+    </div>
+    </>
   );
 }
