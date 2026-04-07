@@ -1,17 +1,22 @@
+'use client';
+
+import { useRef } from 'react';
+import MeshBackground, { type MeshBackgroundHandle } from '@/app/components/MeshBackground';
+import { useMeshMouseEffect } from '@/app/hooks/useMeshMouseEffect';
 import Navbar from '@/app/components/Navbar/Navbar';
 
+
 export default function About() {
+  const meshRef = useRef<MeshBackgroundHandle>(null);
+
+  useMeshMouseEffect(meshRef, { radius: 150, strength: 40, sizeBoost: 6 });
+
   return (
     <div className="relative">
-
-      {/* Mesh Background 
-      <div className="absolute inset-0 -z-10">
-        <MeshBackground />
-      </div>
-      */}
-
       {/* Navbar */}
       <Navbar />
+
+      <MeshBackground ref={meshRef} numNodesX={45} numNodesY={25} nodeSize={4}/>
 
       {/* Main Content */}
       <main className="relative max-w-6xl mx-auto px-4 py-16">
@@ -20,4 +25,4 @@ export default function About() {
       </main>
     </div>
   );
-}
+} 
