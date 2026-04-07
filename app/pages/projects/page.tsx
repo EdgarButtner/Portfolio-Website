@@ -1,5 +1,10 @@
-import Navbar from '@/app/components/Navbar/Navbar';
+'use client'
+
+import { useRef } from 'react';
 import CustomCard from '@/app/components/CustomCard/CustomCard';
+import MeshBackground, { type MeshBackgroundHandle } from '@/app/components/MeshBackground';
+import { useMeshMouseEffect } from '@/app/hooks/useMeshMouseEffect';
+import Navbar from '@/app/components/Navbar/Navbar';
 
 const projects = [
   {
@@ -81,20 +86,18 @@ const projects = [
 ];
 
 export default function Projects() {
+  const meshRef = useRef<MeshBackgroundHandle>(null);
+  useMeshMouseEffect(meshRef, { radius: 500, strength: 15, sizeBoost: 10 });
+
   return (
-    <div className="relative">
-
-      {/* Mesh Background
-      <div className="absolute inset-0 -z-10">
-        <MeshBackground />
-      </div>
-
-
+    <>
+      <MeshBackground ref={meshRef} numNodesX={45} numNodesY={25} nodeSize={4} />
+      <div className="relative isolate">
       {/* Navbar */}
       <Navbar />
 
       {/* Main Content */}
-      <main className="relative max-w-6xl mx-auto px-4 py-16">
+      <main className="max-w-6xl mx-auto px-4 py-16">
         <h1 className="text-4xl font-bold text-align-center mb-4">My Projects</h1>
         <p>This is the projects page.</p>
 
@@ -105,6 +108,7 @@ export default function Projects() {
         </div>
 
       </main>
-    </div>
+      </div>
+    </>
   );
 }
