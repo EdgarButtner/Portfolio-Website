@@ -8,15 +8,15 @@ import Navbar from '@/app/components/Navbar/Navbar';
 
 export default function About() {
   const meshRef = useRef<MeshBackgroundHandle>(null);
-  useMeshMouseEffect(meshRef, { radius: 500, strength: 15, sizeBoost: 10 });
+  useMeshMouseEffect(meshRef, { radius: 550, strength: 4, sizeBoost: 4 });
 
   return (
     <>
-      <MeshBackground ref={meshRef} numNodesX={45} numNodesY={25} nodeSize={4} />
-      <div className="relative isolate">
+      <MeshBackground ref={meshRef} numNodesX={75} numNodesY={40} nodeSize={0.5} nodeColor="#3b82f6" />
+      <div className="relative z-10">
         <Navbar />
-        <main className="max-w-6xl mx-auto px-4 py-16">
-          <h1 className="text-4xl font-bold mb-4">About Me</h1>
+        <main className="max-w-6xl mx-auto px-4 py-16 onHover:cursor-none">
+          <h1 className="text-8xl font-bold mb-4">About Me</h1>
           <p>This is the about page.</p>
         </main>
       </div>

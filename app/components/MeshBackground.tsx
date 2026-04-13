@@ -1,5 +1,6 @@
 'use client';
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { forwardRef, useImperativeHandle, useRef, useSyncExternalStore } from 'react';
 
 export interface MeshBackgroundHandle {
   numNodesX: number;
@@ -15,17 +16,20 @@ interface MeshBackgroundProps {
   numNodesY: number;
   nodeSize?: number;
   nodeColor?: string;
-}
+}  
 
-// Normalises a grid index to a 0–1 ratio. Exported so the mouse hook can
-// compute pixel positions using the same formula without duplicating it.
 export function nodeRatio(index: number, count: number): number {
   return count > 1 ? index / (count - 1) : 0.5;
 }
 
+function useIsMounted() {
+  return useSyncExternalStore(() => () => {}, () => true, () => false);
+}
+
 const MeshBackground = forwardRef<MeshBackgroundHandle, MeshBackgroundProps>(
-  ({ numNodesX, numNodesY, nodeSize = 4, nodeColor = 'rgba(255, 255, 255, 0.3)' }, ref) => {
+  ({ numNodesX, numNodesY, nodeSize = 4, nodeColor = '#3b82f6' }, ref) => {
     const nodeRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const mounted = useIsMounted();
 
     useImperativeHandle(
       ref,
@@ -68,12 +72,14 @@ const MeshBackground = forwardRef<MeshBackgroundHandle, MeshBackgroundProps>(
       [numNodesX, numNodesY, nodeSize]
     );
 
-    return (
+    if (!mounted) return null;
+
+    return createPortal(
       <div
         style={{
           position: 'fixed',
           inset: 0,
-          zIndex: -10,
+          zIndex: -1,
           pointerEvents: 'none',
           overflow: 'hidden',
         }}
@@ -100,7 +106,8 @@ const MeshBackground = forwardRef<MeshBackgroundHandle, MeshBackgroundProps>(
             />
           );
         })}
-      </div>
+      </div>,
+      document.body
     );
   }
 );

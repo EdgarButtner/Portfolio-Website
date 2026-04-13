@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono} from "next/font/google";
+import { Geist, Geist_Mono, Grape_Nuts, Playfair_Display, Quicksand } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,11 +12,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const grapeNuts = Grape_Nuts({
+  variable: "--font-grape-nuts",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair-display",
+  subsets: ["latin"],
+});
+
+const quicksand = Quicksand({
+  variable: "--font-quicksand",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <div className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
+        <div className={`${geistSans.variable} ${geistMono.variable} ${grapeNuts.variable} ${playfairDisplay.variable} ${quicksand.variable} font-body`}>
           {children}
         </div>
       </body>

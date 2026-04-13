@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react';
-import CustomCard from '@/app/components/CustomCard/CustomCard';
+import ScrollAnimatedCard from './ScrollAnimatedCard';
 import MeshBackground, { type MeshBackgroundHandle } from '@/app/components/MeshBackground';
 import { useMeshMouseEffect } from '@/app/hooks/useMeshMouseEffect';
 import Navbar from '@/app/components/Navbar/Navbar';
@@ -37,51 +37,6 @@ const projects = [
     title: "My Project",
     image: "/images/blue.png",
     description: "A cool thing I built.",
-  },
-    {
-    title: "My Profect",
-    image: "/images/blue.png",
-    description: "A cool thing I built.",
-  },
-      {
-    title: "My Profect",
-    image: "/images/blue.png",
-    description: "A cool thing I built.",
-  },
-      {
-    title: "My Profect",
-    image: "/images/blue.png",
-    description: "A cool thing I built.",
-  },
-      {
-    title: "My Profect",
-    image: "/images/blue.png",
-    description: "A cool thing I built.",
-  },
-      {
-    title: "My Profect",
-    image: "/images/blue.png",
-    description: "A cool thing I built.",
-  },
-      {
-    title: "My Profect",
-    image: "/images/blue.png",
-    description: "A cool thing I built.",
-  },
-      {
-    title: "My Profect",
-    image: "/images/blue.png",
-    description: "A cool thing I built.",
-  },
-      {
-    title: "My Profect",
-    image: "/images/blue.png",
-    description: "A cool thing I built.",
-  },
-      {
-    title: "My Profect",
-    image: "/images/blue.png",
-    description: "A cool thing I built.",
   }
 ];
 
@@ -91,23 +46,22 @@ export default function Projects() {
 
   return (
     <>
-      <MeshBackground ref={meshRef} numNodesX={45} numNodesY={25} nodeSize={4} />
-      <div className="relative isolate">
-      {/* Navbar */}
-      <Navbar />
+      <MeshBackground ref={meshRef} numNodesX={45} numNodesY={25} nodeSize={.5} nodeColor="#3b82f6" />
+      <div className="relative z-10">
+        {/* Navbar */}
+        <Navbar />
 
-      {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold text-align-center mb-4">My Projects</h1>
-        <p>This is the projects page.</p>
+        {/* Main Content */}
+        <main className="max-w-6xl mx-auto px-4 py-16">
+          <h1 className="text-4xl font-bold text-align-center mb-4">My Projects</h1>
+          <p>This is the projects page.</p>
 
-        <div className="row-column grid gap-15 mt-10">
-          {projects.map((project, index) => (
-            <CustomCard key={index} index={index} {...project} />
-          ))}
-        </div>
-
-      </main>
+          <div className="row-column grid gap-15 mt-10">
+            {projects.map((project, index) => (
+              <ScrollAnimatedCard key={index} index={index} {...project} />
+            ))}
+          </div>
+        </main>
       </div>
     </>
   );

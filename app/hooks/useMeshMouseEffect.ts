@@ -1,6 +1,10 @@
 import { useEffect, useRef, type RefObject } from 'react';
 import { nodeRatio, type MeshBackgroundHandle } from '@/app/components/MeshBackground';
 
+// Module-level: survives page navigation so the next mount starts with the real cursor position
+let lastMouseX = -9999;
+let lastMouseY = -9999;
+
 interface UseMeshMouseEffectOptions {
   radius?: number;    // px — how far the effect reaches from the cursor
   strength?: number;  // px — max positional displacement at closest point
@@ -15,7 +19,7 @@ export function useMeshMouseEffect(
     sizeBoost = 6,
   }: UseMeshMouseEffectOptions = {}
 ) {
-  const mouse   = useRef({ x: -9999, y: -9999 });
+  const mouse   = useRef({ x: lastMouseX, y: lastMouseY });
   const rafId   = useRef<number | null>(null);
   // Uint8Array: 1 byte per node, zero allocation per frame
   const dirty   = useRef(new Uint8Array(0));
@@ -81,7 +85,9 @@ export function useMeshMouseEffect(
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      mouse.current = { x: e.clientX, y: e.clientY };
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      mouse.current = { x: lastMouseX, y: lastMouseY };
       schedule();
     };
 
@@ -96,6 +102,7 @@ export function useMeshMouseEffect(
     };
 
     buildPositions();
+    schedule();
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('resize', onResize);
     document.addEventListener('mouseleave', onMouseLeave);

@@ -43,7 +43,7 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
         }
     };
 
-    const inputClass = "w-full bg-transparent border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors";
+    const inputClass = "w-full bg-transparent border border-primary rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors";
 
     return (
       <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -52,7 +52,7 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
         <div className="absolute inset-0 bg-black/60" onClick={onClose} />
   
         {/* Modal box */}
-        <div className="relative bg-black text-white border border-gray-600 rounded-2xl p-8 w-full max-w-md mx-4">
+        <div className="relative bg-black text-white border border-primary rounded-2xl p-8 w-full max-w-md mx-4">
           <h2 className="text-2xl font-bold mb-6">Get In Touch!</h2>
           
           {/* Form Fields */}
