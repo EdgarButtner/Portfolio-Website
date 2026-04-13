@@ -21,9 +21,9 @@ export default function Navbar() {
           <Link href="/pages/projects" className="text-lg font-body text-secondary hover:text-primary transition-all duration-300 hover:scale-105">Projects</Link>
         </div>
 
-        <button 
-          onClick={() => setModalOpen(true)} 
-          className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium"
+        <button
+          onClick={() => setModalOpen(true)}
+          className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-primary hover:shadow-[0_4px_18px_rgba(0,120,211,0.45)] transition-all duration-200 shadow-sm"
         >
           Get In Touch
         </button>

@@ -42,18 +42,18 @@ const projects = [
 
 export default function Projects() {
   const meshRef = useRef<MeshBackgroundHandle>(null);
-  useMeshMouseEffect(meshRef, { radius: 500, strength: 15, sizeBoost: 10 });
+  useMeshMouseEffect(meshRef, { radius: 250, strength: 4, sizeBoost: 4 });
 
   return (
     <>
-      <MeshBackground ref={meshRef} numNodesX={45} numNodesY={25} nodeSize={.5} nodeColor="#3b82f6" />
+      <MeshBackground ref={meshRef} numNodesX={75} numNodesY={40} nodeSize={0.5} nodeColor="#3b82f6" />
       <div className="relative z-10">
         {/* Navbar */}
         <Navbar />
 
         {/* Main Content */}
         <main className="max-w-6xl mx-auto px-4 py-16">
-          <h1 className="text-4xl font-bold text-align-center mb-4">My Projects</h1>
+          <h1 className="text-4xl text-align-center mb-4">My Projects</h1>
           <p>This is the projects page.</p>
 
           <div className="row-column grid gap-15 mt-10">
