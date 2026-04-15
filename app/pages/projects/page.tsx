@@ -42,11 +42,11 @@ const projects = [
 
 export default function Projects() {
   const meshRef = useRef<MeshBackgroundHandle>(null);
-  useMeshMouseEffect(meshRef, { radius: 250, strength: 4, sizeBoost: 4 });
+  useMeshMouseEffect(meshRef, { radius: 250, sizeBoost: 4 });
 
   return (
     <>
-      <MeshBackground ref={meshRef} numNodesX={75} numNodesY={40} nodeSize={0.5} nodeColor="#3b82f6" />
+      <MeshBackground ref={meshRef} numNodesX={75} numNodesY={40} nodeSize={0.5} nodeColor="#3b82f6" strength={4} radius={250} />
       <div className="relative z-10">
         {/* Navbar */}
         <Navbar />

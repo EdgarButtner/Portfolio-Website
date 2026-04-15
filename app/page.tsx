@@ -8,11 +8,11 @@ import Image from 'next/image';
 
 export default function Home() {
   const meshRef = useRef<MeshBackgroundHandle>(null);
-  useMeshMouseEffect(meshRef, { radius: 250, strength: 4, sizeBoost: 4 });
+  useMeshMouseEffect(meshRef, { radius: 250, sizeBoost: 8 });
 
   return (
     <>
-      <MeshBackground ref={meshRef} numNodesX={75} numNodesY={40} nodeSize={0.5} nodeColor="#3b82f6" />
+      <MeshBackground ref={meshRef} numNodesX={75} numNodesY={115} nodeSize={4} nodeColor="#0078d3" strength={8} radius={500} />
       <div className="relative z-10">
 
         <Navbar />

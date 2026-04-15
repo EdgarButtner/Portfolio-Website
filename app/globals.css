@@ -4,6 +4,7 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --color-accent2: var(--accent2);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -17,11 +18,13 @@
   --primary: #0078d3;
   --secondary: #ededed;
   --accent: #1e2938;
+  --accent2: #7e7654;
   --background: #0a0a0a;
   --foreground: #ededed;
 }
 
 body {
+  position: relative;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-quicksand), sans-serif;

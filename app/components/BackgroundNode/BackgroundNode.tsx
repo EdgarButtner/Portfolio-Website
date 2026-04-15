@@ -1,27 +1,33 @@
-/*
-Inferface for a background node including location, size, and color
-*/
+import { forwardRef } from 'react';
+
 interface BackgroundNodeProps {
-    locationX: number;
-    locationY: number;
-    size: number;
-    color: string;
+  locationX: number; // percentage 0–100
+  locationY: number; // percentage 0–100
+  size: number;      // px
+  color: string;
 }
 
-/*
-Renders a single circular background node.
-*/
-export default function BackgroundNode({locationX, locationY, size, color}: BackgroundNodeProps) {
+const BackgroundNode = forwardRef<HTMLDivElement, BackgroundNodeProps>(
+  ({ locationX, locationY, size, color }, ref) => {
+    const half = size / 2;
     return (
-      <div style={{
-        position: 'absolute',
-        left: locationX,
-        top: locationY,
-        width: size,
-        height: size,
-        borderRadius: '50%',
-        backgroundColor: color,
-      }}>
-      </div>
+      <div
+        ref={ref}
+        style={{
+          position: 'absolute',
+          left: `${locationX}%`,
+          top: `${locationY}%`,
+          width: `${size}px`,
+          height: `${size}px`,
+          marginLeft: `-${half}px`,
+          marginTop: `-${half}px`,
+          borderRadius: '50%',
+          backgroundColor: color,
+        }}
+      />
     );
-}
+  }
+);
+
+BackgroundNode.displayName = 'BackgroundNode';
+export default BackgroundNode;
