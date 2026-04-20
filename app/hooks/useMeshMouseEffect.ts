@@ -48,7 +48,7 @@ export function useMeshMouseEffect(
             const index = row * numNodesX + col;
             if (d[index]) {
               d[index] = 0;
-              mesh.resizeNode(col, row, nodeSize);
+              mesh.resizeNode(col, row, nodeSize, 0);
             }
           }
           continue;
@@ -61,11 +61,11 @@ export function useMeshMouseEffect(
 
           if (distSq < radiusSq && distSq > 0) {
             const t = 1 - Math.sqrt(distSq) / radius;
-            mesh.resizeNode(col, row, nodeSize + t * sizeBoost);
+            mesh.resizeNode(col, row, nodeSize + t * sizeBoost, 1);
             d[index] = 1;
           } else if (d[index]) {
             d[index] = 0;
-            mesh.resizeNode(col, row, nodeSize);
+            mesh.resizeNode(col, row, nodeSize, 0);
           }
         }
       }
@@ -112,7 +112,7 @@ export function useMeshMouseEffect(
         for (let i = 0; i < d.length; i++) {
           if (d[i]) {
             d[i] = 0;
-            meshAtMount.resizeNode(i % numNodesX, Math.floor(i / numNodesX), nodeSize);
+            meshAtMount.resizeNode(i % numNodesX, Math.floor(i / numNodesX), nodeSize, 0);
           }
         }
       }

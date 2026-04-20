@@ -10,7 +10,7 @@ export interface MeshBackgroundHandle {
   nodeSize: number;
   nodeX: Float64Array; // document-space pixel X per column (live — read each tick)
   nodeY: Float64Array; // document-space pixel Y per row    (live — read each tick)
-  resizeNode: (col: number, row: number, size: number) => void;
+  resizeNode: (col: number, row: number, size: number, opacity: number) => void;
 }
 
 interface MeshBackgroundProps {
@@ -46,7 +46,7 @@ const MeshBackground = forwardRef<MeshBackgroundHandle, MeshBackgroundProps>(
         nodeSize,
         get nodeX() { return nodeXRef.current; },
         get nodeY() { return nodeYRef.current; },
-        resizeNode: (col, row, size) => {
+        resizeNode: (col, row, size, opacity) => {
           const node = nodeRefs.current[row * numNodesX + col] ?? null;
           if (!node) return;
           const half = size / 2;
@@ -54,6 +54,7 @@ const MeshBackground = forwardRef<MeshBackgroundHandle, MeshBackgroundProps>(
           node.style.height = `${size}px`;
           node.style.marginLeft = `-${half}px`;
           node.style.marginTop = `-${half}px`;
+          node.style.opacity = `${opacity}`;
         },
       }),
       [numNodesX, numNodesY, nodeSize]

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import CustomCard from "@/app/components/CustomCard/CustomCard";
 
 interface ScrollAnimatedCardProps {
@@ -14,8 +14,6 @@ interface ScrollAnimatedCardProps {
 }
 
 export default function ScrollAnimatedCard({ index = 0, ...cardProps }: ScrollAnimatedCardProps) {
-  const [cardStyle, setCardStyle] = useState<React.CSSProperties>({});
-  const [isInView, setIsInView] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,17 +33,14 @@ export default function ScrollAnimatedCard({ index = 0, ...cardProps }: ScrollAn
       if (top <= topShiftStart) {
         const step = (topShiftStart - top) / (topShiftStart - bottomShiftStart);
         translateX = sideOffset * step * speedX;
-        setIsInView(false);
       } else if (top >= bottomShiftStart) {
         const step = (bottomShiftStart - top) / (bottomShiftStart - topShiftStart);
         translateX = sideOffset * step * speedX;
-        setIsInView(false);
       } else {
         translateX = 0;
-        setIsInView(true);
       }
 
-      setCardStyle({ transform: `translateX(${translateX}px)` });
+      cardRef.current.style.transform = `translateX(${translateX}px)`;
     };
 
     update();
@@ -58,8 +53,8 @@ export default function ScrollAnimatedCard({ index = 0, ...cardProps }: ScrollAn
   }, [index]);
 
   return (
-    <div ref={cardRef} style={cardStyle}>
-      <CustomCard {...cardProps} resetExpanded={!isInView} />
+    <div ref={cardRef} style={{ willChange: "transform" }}>
+      <CustomCard {...cardProps} />
     </div>
   );
 }

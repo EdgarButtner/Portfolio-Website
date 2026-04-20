@@ -43,7 +43,7 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
         }
     };
 
-    const inputClass = "w-full bg-transparent border border-accent rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-secondary transition-colors";
+    const inputClass = "w-full bg-transparent border border-accent rounded-lg px-4 py-2 text-white placeholder-muted focus:outline-none focus:border-secondary transition-colors";
 
     return (
       <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -58,7 +58,7 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
           {/* Form Fields */}
           <div className="flex flex-col gap-4">
             <div>
-              <label className="text-sm text-gray-400 mb-1 block">Name</label>
+              <label className="text-sm text-muted mb-1 block">Name</label>
               <input
                 type="text"
                 name="name"
@@ -70,7 +70,7 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
             </div>
 
             <div>
-              <label className="text-sm text-gray-400 mb-1 block">Email</label>
+              <label className="text-sm text-muted mb-1 block">Email</label>
               <input
                 type="email"
                 name="email"
@@ -82,7 +82,7 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
             </div>
 
             <div>
-              <label className="text-sm text-gray-400 mb-1 block">Message</label>
+              <label className="text-sm text-muted mb-1 block">Message</label>
               <textarea
                 name="message"
                 value={formData.message}
@@ -98,11 +98,11 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
           <div className="flex gap-3 mt-6">
             <button
               onClick={handleSubmit}
-              className="px-4 py-2 bg-white text-black rounded-full text-sm font-medium hover:bg-gray-400 transition-colors"
+              className="px-4 py-2 bg-white text-black rounded-full text-sm font-medium hover:bg-muted transition-colors"
             >
               {status === 'sending' ? 'Sending...' : 'Send'}
             </button>
-            <button onClick={onClose} className="px-4 py-2 border border-gray-600 text-white rounded-full text-sm hover:border-white transition-colors">
+            <button onClick={onClose} className="px-4 py-2 border border-muted-dark text-white rounded-full text-sm hover:border-white transition-colors">
               Close
             </button>
           </div>

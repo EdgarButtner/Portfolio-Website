@@ -2,11 +2,19 @@
 
 @theme inline {
   --color-primary: var(--primary);
+  --color-primary-dark: var(--primary);
   --color-secondary: var(--secondary);
+  --color-third: var(--third);
   --color-accent: var(--accent);
   --color-accent2: var(--accent2);
-  --color-background: var(--background);
+  --color-backgroundDark: var(--backgroundDark);
+  --color-backgroundLight: var(--backgroundLight);
   --color-foreground: var(--foreground);
+  --color-panel: var(--panel);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-dark: var(--surface-dark);
+  --color-muted: var(--muted);
+  --color-muted-dark: var(--muted-dark);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-brush: var(--font-grape-nuts);
@@ -16,25 +24,46 @@
 
 :root {
   --primary: #0078d3;
+  --primary-dark: #0059c6;
   --secondary: #ededed;
-  --accent: #1e2938;
+  --third: #000000;
+  --accent: #1f2937;
   --accent2: #7e7654;
-  --background: #0a0a0a;
+  --backgroundDark: #0a0a0a;
+  --backgroundLight: #f4e6d8;
   --foreground: #ededed;
+  --panel: #111827;
+  --surface-subtle: #e5e7eb;
+  --surface-dark: #1f2937;
+  --muted: #9ca3af;
+  --muted-dark: #4b5563;
 }
 
 body {
   position: relative;
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--backgroundLight);
+  color: #000000;
   font-family: var(--font-quicksand), sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: var(--backgroundDark);
+    color: var(--foreground);
+  }
 }
 
 @layer base {
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-quicksand), sans-serif;
     font-weight: 400;
-    text-shadow: 3px 3px 6px var(--primary);
+    color: var(--primary);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--foreground);
+    }
   }
 
   input, textarea, select {
